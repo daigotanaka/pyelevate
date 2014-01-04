@@ -1,7 +1,8 @@
 pyelevate
 =========
 
-Executes a shell command with an elevated rights on Windows Vista, Windows 7
+Executes a shell command with an elevated rights on Windows Vista, Windows 7.
+It requires win32com and win32con modules.
 
 Examples
 ---------
