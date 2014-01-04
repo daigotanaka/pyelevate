@@ -2,6 +2,7 @@ pyelevate
 =========
 
 Executes a shell command with an elevated rights on Windows Vista, Windows 7.
+
 It requires win32com and win32con modules.
 
 Examples
@@ -23,3 +24,10 @@ It can also be imported in other python program, of course:
     
     elevate("netsh", "advfirewall firewall delete rule name="My_Exception_6701" protocol=TCP localport=6701")
     # elevate("netsh", "firewall delete portopening 6701") for Windows XP
+
+Credit
+---------
+
+This little code is inspired by Torsten Flammiger's elevate.exe. Thanks!
+
+Elevate.exe: https://gist.github.com/tfl/5821496
