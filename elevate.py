@@ -15,8 +15,12 @@ def elevate(command, param="", wait=False):
 
     It may pops User Access Control dialog to confirm the elevation.
     """
+
+    # SEE_MASK_NOASYNC(0x00000100) + SEE_MASK_NOCLOSEPROCESS(0x00000040)
+    f_mask = 256 + 64 if wait else 0
+
     dict = shell.ShellExecuteEx(
-        fMask=256 + 64,  # SEE_MASK_NOASYNC(0x00000100) + SEE_MASK_NOCLOSEPROCESS(0x00000040)
+        fMask=f_mask,
         hwnd=None,
         lpVerb="runas",
         lpFile=command,
