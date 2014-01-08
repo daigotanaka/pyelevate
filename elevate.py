@@ -1,11 +1,12 @@
 import sys
+import win32event
 
 from win32com.shell import shell
-from win32con import SW_HIDE
 
-def elevate(command, param=""):
+
+def elevate(command, param="", wait=False):
     """
-    Execut a she shell command with elevated rights when the current
+    Execute a shell command with elevated rights when the current
     user can have the privilge.
 
     Deisgned to be used with Windows Vista, 7 and 8.
@@ -14,14 +15,22 @@ def elevate(command, param=""):
 
     It may pops User Access Control dialog to confirm the elevation.
     """
-    ret = shell.ShellExecuteEx(
+    dict = shell.ShellExecuteEx(
+        fMask=256 + 64,  # SEE_MASK_NOASYNC(0x00000100) + SEE_MASK_NOCLOSEPROCESS(0x00000040)
         hwnd=None,
         lpVerb="runas",
         lpFile=command,
         lpParameters=param,
         lpDirectory=""
     )
+
+    if not wait:
+        return dict
+
+    hh = dict["hProcess"]
+    ret = win32event.WaitForSingleObject(hh, -1)
     return ret
+
 
 if __name__ == "__main__":
     argv = sys.argv
